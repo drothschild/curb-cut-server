@@ -1,0 +1,8 @@
+#content
+  %h2.col-12.text-center Curbs Listing
+  .container
+    = link_to 'New Curb', new_curb_path
+    - @curbs.each do |curb|
+      .col-xs-6.col-md-4
+        = curb.lat
+        = curb.longit
