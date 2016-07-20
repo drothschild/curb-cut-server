@@ -1,7 +1,5 @@
 %button{:onclick => "setLocation()"} Get Location
-
-
-= form_for @curb, :html => {:class => " form horizontal"} do |f|
+= form_for @curb, :html => {:class => " form horizontal"} do |f|  
   %fieldset.form-group
     = f.label :Latitude
     = f.text_field :lat, class: "form-control", id: "lat"
