@@ -26,7 +26,7 @@ class CurbsController < ApplicationController
   private
 
   def curb_params
-    params.require(:curb).permit(:lat, :longit, :photo)
+    params.require(:curb).permit(:lat, :lng, :photo)
   end
 
 end

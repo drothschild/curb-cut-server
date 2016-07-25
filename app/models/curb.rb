@@ -1,5 +1,7 @@
 class Curb < ActiveRecord::Base
 
+  acts_as_mappable
+
   has_attached_file :photo, styles: {
     thumb: '100x100>',
     square: '200x200#',

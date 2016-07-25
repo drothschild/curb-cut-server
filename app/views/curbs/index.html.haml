@@ -5,4 +5,5 @@
     - @curbs.each do |curb|
       .col-xs-6.col-md-4
         = curb.lat
-        = curb.longit
+        = curb.lng
+        = image_tag curb.photo.url(:square)
