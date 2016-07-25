@@ -1,9 +1,14 @@
 source 'https://rubygems.org'
 
-
+gem 'dotenv-rails',  :groups => [:development, :test], :require => 'dotenv/rails-now'
 gem 'haml-rails'
 
 gem 'react-rails', '~>1.0'
+
+#For uploading pictures
+gem 'paperclip'
+gem 'aws-sdk', '~> 2.3'
+
 
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'

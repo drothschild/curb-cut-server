@@ -11,14 +11,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160616195719) do
+ActiveRecord::Schema.define(version: 20160725165136) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "curbs", force: :cascade do |t|
-    t.decimal "lat"
-    t.decimal "longit"
+    t.decimal  "lat"
+    t.decimal  "longit"
+    t.string   "photo_file_name"
+    t.string   "photo_content_type"
+    t.integer  "photo_file_size"
+    t.datetime "photo_updated_at"
   end
 
 end

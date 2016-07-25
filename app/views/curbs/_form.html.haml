@@ -1,10 +1,12 @@
 %button{:onclick => "setLocation()"} Get Location
-= form_for @curb, :html => {:class => " form horizontal"} do |f|  
+= form_for(@curb, multipart: true) do |f|  
   %fieldset.form-group
     = f.label :Latitude
     = f.text_field :lat, class: "form-control", id: "lat"
   %fieldset.form-group
     = f.label :Longitude
     = f.text_field :longit, class: "form-control", id: "longit"
+  %fieldset.form-group
+    = f.label :Photo
+    = f.file_field :photo
   =f.submit
-
