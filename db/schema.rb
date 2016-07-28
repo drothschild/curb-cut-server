@@ -11,14 +11,28 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160616195719) do
+ActiveRecord::Schema.define(version: 20160726060252) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "curbs", force: :cascade do |t|
-    t.decimal "lat"
-    t.decimal "longit"
+    t.decimal  "lat"
+    t.decimal  "lng"
+    t.string   "photo_file_name"
+    t.string   "photo_content_type"
+    t.integer  "photo_file_size"
+    t.datetime "photo_updated_at"
+    t.string   "street"
+    t.string   "street2"
+    t.string   "cross_street"
+    t.string   "city"
+    t.string   "state"
+    t.string   "zip"
+    t.string   "country"
+    t.boolean  "broken"
+    t.string   "street_number"
+    t.string   "name"
   end
 
 end
