@@ -9,8 +9,10 @@ gem 'react-rails', '~>1.0'
 gem 'paperclip'
 gem 'aws-sdk', '~> 2.3'
 
-#For maps and boudaries
+#For maps and such
 gem 'geokit-rails'
+gem 'gmaps4rails'
+gem 'geocoder'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.5.1'

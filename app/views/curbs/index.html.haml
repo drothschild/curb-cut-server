@@ -1,7 +1,45 @@
+:javascript
+  //default position is center of Oakland
+  var lat = 37.8044;
+  var lng = -122.2711;
+  var pos = new google.maps.LatLng(lat, lng);
+  var geocoder = new google.maps.Geocoder();
+  var curbsNewMarker = null;
+  handler = Gmaps.build('Google');
+  handler.buildMap( {
+    provider: {
+      zoom: 15,
+      center: pos
+    },
+    internal: {
+      id: 'map'
+    }
+  });
+  google.maps.event.addListenerOnce(handler.map.getServiceObject(), 'idle', function(event) {
+    getLocation();
+    markers = #{raw @hash.to_json};
+    markers.map (function(m) {
+    console.log (m);
+      var marker = handler.addMarker(m);
+      marker.serviceObject.set('id', m.id);
+      return marker;
+      })
+    });
+
+  google.maps.event.addListener(handler.map.getServiceObject(), 'click', function(event) {
+    clearMarker(curbsNewMarker);
+    geocodePoint(event.latLng, function(data){
+      curbsNew(data);
+    })
+    });
+  $(document).on('click','#curbs_save',function(event) {
+    curbsSave(event);
+  });
+
+
 #content
   %h2.col-12.text-center Curbs Listing
   .container
-    = link_to 'New Curb', new_curb_path
     - @curbs.each do |curb|
       .col-xs-6.col-md-4
         = curb.lat
