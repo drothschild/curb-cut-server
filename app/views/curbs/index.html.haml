@@ -37,10 +37,5 @@
 
 
 #content
-  %h2.col-12.text-center Curbs Listing
-  .container
-    - @curbs.each do |curb|
-      .col-xs-6.col-md-4
-        = curb.lat
-        = curb.lng
-        = image_tag curb.photo.url(:square)
+  %h2.col-12.text-center Curb Cuts
+  #map
