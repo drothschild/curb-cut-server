@@ -2,24 +2,19 @@ function getLocation() {
   if (navigator.geolocation){
   var timeoutVal = 10 * 1000 * 1000;
   navigator.geolocation.getCurrentPosition (
-    setFormAndMap,
+    setMapCenter,
     displayError,
     { enableHighAccuracy: true, timeout: timeoutVal, maximumAge: 0 }
     );
   }
 }
 
-function setFormAndMap(position){
+function setMapCenter(position){
     var lat = position.coords.latitude;
     var lng = position.coords.longitude;
-
     var pos = new google.maps.LatLng(lat, lng);
     handler.map.centerOn(pos);
-
-    // $("#lat").val(lat);
-    // $("#lng").val(lng);
- 
-}
+ }
 
 
 
@@ -65,10 +60,6 @@ function curbsNew(geocode_information) {
                 // Add close infowindow behavior
                 google.maps.event.addListener(handler.map.visibleInfoWindow,'closeclick', function(){
                    clearMarker(curbsNewMarker);
-                // Add submit form behavior
-                // $('#curbs_save').bind('click', function (e) {
-                //   curbsSave(e);
-                // });
                 });   
             }
             

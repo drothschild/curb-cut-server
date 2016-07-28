@@ -19,7 +19,6 @@
     getLocation();
     markers = #{raw @hash.to_json};
     markers.map (function(m) {
-    console.log (m);
       var marker = handler.addMarker(m);
       marker.serviceObject.set('id', m.id);
       return marker;
