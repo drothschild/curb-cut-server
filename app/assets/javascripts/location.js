@@ -51,12 +51,15 @@ function curbsNew(geocode_information) {
         type: 'GET',
         success: function(html) { 
             
-            // Add on close behaviour to clear this marker
+            // Add on close behavior to clear this marker
             var createFormOpen = function() {
                 
                 // Open new form                    
                 openInfowindow(html, curbsNewMarker);
-                  
+                $(document).bind("ajax:success", function(e, data, status, xhr){
+                    console.log("Hey");
+                    console.log(data);
+                  }); 
                 // Add close infowindow behavior
                 google.maps.event.addListener(handler.map.visibleInfoWindow,'closeclick', function(){
                    clearMarker(curbsNewMarker);
@@ -75,35 +78,43 @@ function curbsNew(geocode_information) {
 }
 
 var curbsSave = function(event) {
-  event.preventDefault();
-  console.log(event);
-  var data = $('form').serialize();
-  var uri = event.target.form.action;
-  console.log (uri);
-  $.ajax({
-    url: uri,
-    method: "POST",
-    dataType: "json",
-    data: data
-  }).done(function(response){
-    clearMarker(curbsNewMarker);
-    closeInfowindow();
-    var marker = handler.addMarkers([
-      {
-        "lat": response.lat,
-        "lng": response.lng,
-        "picture": {
-          "url": response.imgUrl,
-          "width":  16,
-          "height": 16
-        },
-        "infowindow": response.infowindow
-      }
-    ]);
-    marker.serviceObject.set('id', response.id);
-    markers.push(marker);
+  // console.log (this);
+  // $(form).bind("ajax:success", function(){
+  //   if ( $(this).data('remotipartSubmitted')){
+  //    var curb = $(this).data;
+  //    console.log(curb);
+  //   }
+  // });
+
+  // event.preventDefault();
+  // console.log(event);
+  // var data = $('form').serialize();
+  // var uri = event.target.form.action;
+  // console.log (uri);
+  // $.ajax({
+  //   url: uri,
+  //   method: "POST",
+  //   dataType: "json",
+  //   data: data
+  // }).done(function(response){
+  //   clearMarker(curbsNewMarker);
+  //   closeInfowindow();
+  //   var marker = handler.addMarkers([
+  //     {
+  //       "lat": response.lat,
+  //       "lng": response.lng,
+  //       "picture": {
+  //         "url": response.imgUrl,
+  //         "width":  16,
+  //         "height": 16
+  //       },
+  //       "infowindow": response.infowindow
+  //     }
+  //   ]);
+  //   marker.serviceObject.set('id', response.id);
+  //   markers.push(marker);
     
-  });
+  // });
 }
 
 function openInfowindow(html, marker)  {

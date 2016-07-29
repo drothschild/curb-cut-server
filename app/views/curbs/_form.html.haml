@@ -1,17 +1,18 @@
-= form_for(@curb, multipart: true) do |f|
-  %fieldset.form-group
-    = f.label :Name
-    = f.text_field :name, class: "form-control", id: "name"
-  %fieldset.form-group
-    = f.hidden_field :lat
-    = f.hidden_field :lng
-    = f.hidden_field :street_number
-    = f.hidden_field :street
-    = f.hidden_field :city
-    = f.hidden_field :state
-    = f.hidden_field :zip
-    = f.hidden_field :country  
-  %fieldset.form-group
-    = f.label :Photo
-    = f.file_field :photo, class: "btn btn-default btn-file"
-  = f.submit "Save", class: "btn btn-default form-submit", id: "curbs_save"
+#new-curb
+  = form_for(@curb, multipart: true, remote: true, format: 'js'  ) do |f|
+    %fieldset.form-group
+      = f.label :Name
+      = f.text_field :name, class: "form-control", id: "name"
+    %fieldset.form-group
+      = f.hidden_field :lat
+      = f.hidden_field :lng
+      = f.hidden_field :street_number
+      = f.hidden_field :street
+      = f.hidden_field :city
+      = f.hidden_field :state
+      = f.hidden_field :zip
+      = f.hidden_field :country  
+    %fieldset.form-group
+      = f.label :Photo
+      = f.file_field :photo, class: "btn btn-default btn-file"
+    = f.submit "Save", class: "btn btn-default form-submit", id: "curbs_save"
