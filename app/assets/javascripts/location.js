@@ -38,11 +38,11 @@ function getCurbsinBounds() {
 
 function curbsNew(geocode_information) {
     
-      
+    position = new google.maps.LatLng(geocode_information.lat,geocode_information.lng);
     curbsNewMarker = new google.maps.Marker({
-        position: new google.maps.LatLng(geocode_information.lat,geocode_information.lng), 
+        position: position, 
         map: handler.map.serviceObject,
-        icon: 'http://www.google.com/mapfiles/marker_green.png',
+        icon: 'https://www.google.com/mapfiles/marker_green.png',
     });
     
     $.ajax({
@@ -50,7 +50,6 @@ function curbsNew(geocode_information) {
         type: 'GET',
         success: function(html) { 
             
-            // Add on close behavior to clear this marker
             var createFormOpen = function() {
                 
                 // Open new form                    
@@ -73,43 +72,7 @@ function curbsNew(geocode_information) {
 }
 
 var saveCurb = function(event) {
-  // console.log (this);
-  // $(form).bind("ajax:success", function(){
-  //   if ( $(this).data('remotipartSubmitted')){
-  //    var curb = $(this).data;
-  //    console.log(curb);
-  //   }
-  // });
 
-  // event.preventDefault();
-  // console.log(event);
-  // var data = $('form').serialize();
-  // var uri = event.target.form.action;
-  // console.log (uri);
-  // $.ajax({
-  //   url: uri,
-  //   method: "POST",
-  //   dataType: "json",
-  //   data: data
-  // }).done(function(response){
-  //   clearMarker(curbsNewMarker);
-  //   closeInfowindow();
-  //   var marker = handler.addMarkers([
-  //     {
-  //       "lat": response.lat,
-  //       "lng": response.lng,
-  //       "picture": {
-  //         "url": response.imgUrl,
-  //         "width":  16,
-  //         "height": 16
-  //       },
-  //       "infowindow": response.infowindow
-  //     }
-  //   ]);
-  //   marker.serviceObject.set('id', response.id);
-  //   markers.push(marker);
-    
-  // });
 }
 
 function deleteCurb(event) {
@@ -147,9 +110,10 @@ function editCurb(event) {
     var marker = filterMarker(id);
     handler.currentInfowindow().setContent(serverResponse);
     google.maps.event.addListener(handler.currentInfowindow(),'closeclick', function(){
-        handler.currentInfowindow().setContent(oldContent);
-      });
+      console.log ("changing content back")
+      handler.currentInfowindow().setContent(oldContent);
     });
+  });
 }
 
 

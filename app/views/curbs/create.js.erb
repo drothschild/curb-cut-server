@@ -1,8 +1,8 @@
-var newMarkers = <%= raw @hash.to_json %> ;
+clearMarker(curbsNewMarker);
+var newMarkers = <%= raw @hash.to_json %>;
 var m = newMarkers[0];
 var marker = handler.addMarker(m);
 marker.serviceObject.set('id', m.id);
 handler.markers.push(marker);
 // Open the new marker
-clearMarker(curbsNewMarker);
-google.maps.event.trigger(marker.getServiceObject(), 'click');
+// google.maps.event.trigger(marker.getServiceObject(), 'click');
