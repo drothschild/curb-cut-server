@@ -4,7 +4,6 @@ class CurbsController < ApplicationController
     # Sometime change all to map bounds
     @curbs = Curb.all
     img_url = ActionController::Base.helpers.path_to_image('red_wheelchair.png')
-    p img_url
     @hash = Gmaps4rails.build_markers(@curbs) do |curb, marker|
       marker.infowindow render_to_string(:partial => 'show', :locals => { :@curb => curb})
 
@@ -26,6 +25,11 @@ class CurbsController < ApplicationController
   def new
     @curb = Curb.new(params[:curb].present? ? curb_params : nil)
     render partial: 'form'
+  end
+
+  def edit
+    @curb = Curb.find(params[:id])
+    render partial: 'form',  :locals => { :@curb => @curb}
   end
 
   def create
@@ -67,6 +71,17 @@ class CurbsController < ApplicationController
         
       end
     end
+  end
+
+  def destroy
+    @curb = Curb.find(params[:id])
+    @curb.destroy
+    if request.xhr?
+      render json: {id: params[:id]}
+    else
+      redirect_to curbs_url
+    end
+
   end
 
   private

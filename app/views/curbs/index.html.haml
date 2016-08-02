@@ -9,6 +9,8 @@
   handler.buildMap( {
     provider: {
       zoom: 15,
+      do_clustering: false, 
+      disableDoubleClickZoom: true,
       center: pos
     },
     internal: {
@@ -17,24 +19,34 @@
   });
   google.maps.event.addListenerOnce(handler.map.getServiceObject(), 'idle', function(event) {
     getLocation();
-    markers = #{raw @hash.to_json};
-    markers.map (function(m) {
+    var markers = #{raw @hash.to_json};
+    handler.markers = markers.map (function(m) {
       var marker = handler.addMarker(m);
       marker.serviceObject.set('id', m.id);
       return marker;
       })
+    console.log(handler.markers.length);
     });
 
-  google.maps.event.addListener(handler.map.getServiceObject(), 'click', function(event) {
+
+  google.maps.event.addListener(handler.map.getServiceObject(), 'dblclick', function(event) {
     clearMarker(curbsNewMarker);
     geocodePoint(event.latLng, function(data){
       curbsNew(data);
     })
     });
-  $(document).on('click','#curbs_save',function(event) {
-    curbsSave(event);
-  });
-
+  $(document).ready(function(){
+   $(document).on('click','.curb-save',function(event) {
+      saveCurb(event);
+    });
+    $(document).on('click','.curb-delete',function(event) {
+      deleteCurb(event);
+    });
+    $(document).on('click','.curb-edit',function(event) {
+      editCurb(event);
+    });
+  });   
+ 
 
 #content
   %h2.col-12.text-center Curb Cuts

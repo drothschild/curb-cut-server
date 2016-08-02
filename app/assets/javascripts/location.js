@@ -77,7 +77,7 @@ function curbsNew(geocode_information) {
     });
 }
 
-var curbsSave = function(event) {
+var saveCurb = function(event) {
   // console.log (this);
   // $(form).bind("ajax:success", function(){
   //   if ( $(this).data('remotipartSubmitted')){
@@ -116,6 +116,55 @@ var curbsSave = function(event) {
     
   // });
 }
+
+function deleteCurb(event) {
+  event.preventDefault();
+  var uri = event.currentTarget.href;
+  var data = ""; 
+  var ajaxRequest = $.ajax({
+    url: uri,
+    type: 'delete',
+    data: data
+  });
+  ajaxRequest.done(function(serverResponse, status, jqXHR)
+  {
+    closeInfowindow();
+    clearMarker(filterMarker(serverResponse.id));
+    handler.markers= handler.markers.filter(function(m){
+      return m.serviceObject.id != serverResponse.id;
+    });
+  })
+}
+
+function editCurb(event) {
+  event.preventDefault();
+  closeInfowindow();
+  var uri = event.currentTarget.href + "/edit";
+  var id = event.currentTarget.id;
+  var data = ""; 
+  var ajaxRequest = $.ajax({
+    url: uri,
+    type: 'get',
+    data: data
+  });
+  ajaxRequest.done(function(serverResponse, status, jqXHR)
+  {
+    var marker = filterMarker(id);
+    console.log (marker);
+
+    handler.map.visibleInfoWindow = new google.maps.InfoWindow({content: serverResponse});
+    handler.map.visibleInfoWindow.open(handler.map.serviceObject, marker);
+
+    });
+}
+
+
+function filterMarker(id) {
+ return handler.markers.filter(function(m){
+    return m.serviceObject.id == id;
+  })[0];
+}
+
 
 function openInfowindow(html, marker)  {
     

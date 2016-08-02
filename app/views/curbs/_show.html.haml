@@ -1,2 +1,4 @@
 = image_tag @curb.photo.url(:square)
 = @curb.name
+= link_to 'Edit', @curb, class: "btn pull-right btn-round curb-edit", id: @curb.id
+= link_to 'Delete', @curb, class: "btn btn-danger pull-right btn-round curb-delete", id: @curb.id

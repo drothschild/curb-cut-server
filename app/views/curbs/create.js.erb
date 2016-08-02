@@ -1,8 +1,10 @@
 clearMarker(curbsNewMarker);
 closeInfowindow();
-   var newMarkers = <%= raw @hash.to_json %> ;
-    newMarkers.map (function(m) {
-      var marker = handler.addMarker(m);
-      marker.serviceObject.set('id', m.id);
-      return marker;
-      });
+var newMarkers = <%= raw @hash.to_json %> ;
+ newMarkers.map (function(m) {
+  var marker = handler.addMarker(m);
+  marker.serviceObject.set('id', m.id);
+  handler.markers.push(marker);
+  return marker;
+  });
+
