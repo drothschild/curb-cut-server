@@ -45,7 +45,6 @@ function curbsNew(geocode_information) {
         icon: 'http://www.google.com/mapfiles/marker_green.png',
     });
     
-    // Invoke rails app to get the create form
     $.ajax({
         url: '/curbs/new?' + jQuery.param({curb:geocode_information}) + '#chunked=true',
         type: 'GET',
@@ -56,10 +55,6 @@ function curbsNew(geocode_information) {
                 
                 // Open new form                    
                 openInfowindow(html, curbsNewMarker);
-                $(document).bind("ajax:success", function(e, data, status, xhr){
-                    console.log("Hey");
-                    console.log(data);
-                  }); 
                 // Add close infowindow behavior
                 google.maps.event.addListener(handler.map.visibleInfoWindow,'closeclick', function(){
                    clearMarker(curbsNewMarker);
@@ -128,7 +123,6 @@ function deleteCurb(event) {
   });
   ajaxRequest.done(function(serverResponse, status, jqXHR)
   {
-    closeInfowindow();
     clearMarker(filterMarker(serverResponse.id));
     handler.markers= handler.markers.filter(function(m){
       return m.serviceObject.id != serverResponse.id;
@@ -138,10 +132,11 @@ function deleteCurb(event) {
 
 function editCurb(event) {
   event.preventDefault();
-  closeInfowindow();
   var uri = event.currentTarget.href + "/edit";
   var id = event.currentTarget.id;
   var data = ""; 
+  var oldContent = handler.currentInfowindow().getContent();
+  console.log (oldContent);
   var ajaxRequest = $.ajax({
     url: uri,
     type: 'get',
@@ -150,11 +145,10 @@ function editCurb(event) {
   ajaxRequest.done(function(serverResponse, status, jqXHR)
   {
     var marker = filterMarker(id);
-    console.log (marker);
-
-    handler.map.visibleInfoWindow = new google.maps.InfoWindow({content: serverResponse});
-    handler.map.visibleInfoWindow.open(handler.map.serviceObject, marker);
-
+    handler.currentInfowindow().setContent(serverResponse);
+    google.maps.event.addListener(handler.currentInfowindow(),'closeclick', function(){
+        handler.currentInfowindow().setContent(oldContent);
+      });
     });
 }
 
@@ -167,18 +161,20 @@ function filterMarker(id) {
 
 
 function openInfowindow(html, marker)  {
-    
-    // Close previous infowindow if exists
-    closeInfowindow();
-    
-    // Set the content and open
-    handler.map.visibleInfoWindow = new google.maps.InfoWindow({content: html});
-    handler.map.visibleInfoWindow.open(handler.map.serviceObject, marker);
+  // Close previous infowindow if exists
+  closeInfowindow();
+  console.log ("close info window ");
+  // Set the content and open
+  handler.map.visibleInfoWindow = new google.maps.InfoWindow({content: html});
+  handler.map.visibleInfoWindow.open(handler.map.serviceObject, marker);
+  console.log ("open Info Window");
 }
 
 function closeInfowindow() {
-    if (handler.visibleInfoWindow) 
-        handler.visibleInfoWindow.close();
+   if (handler.currentInfowindow()){
+        handler.currentInfowindow().close();
+      }
+
 }    
 
 

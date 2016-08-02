@@ -13,5 +13,14 @@ class Curb < ActiveRecord::Base
 
 validates_attachment_content_type :photo, :content_type => /\Aimage\/.*\Z/
 
+before_validation { photo.clear if @delete_image }
+
+  def delete_image
+    @delete_image ||= false
+  end
+
+  def delete_image=(value)
+    @delete_image  = !value.to_i.zero?
+  end
 
 end
