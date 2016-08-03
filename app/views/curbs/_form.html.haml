@@ -15,10 +15,11 @@
     %fieldset.form-group
       = f.label :Photo
       - if @curb.photo.exists?
-        = image_tag @curb.photo.url(:thumb) 
-        %br/
-        = f.check_box :delete_image
-        Delete Photo
+        = image_tag @curb.photo.url(:thumb)
+        %br/  
+        .btn-group{"data-toggle" => "buttons"}
+          = f.check_box :delete_image
+          Delete Photo
         %br/ 
       = f.file_field :photo, class: "btn btn-default btn-file"
     = f.submit "Save", class: "btn btn-default form-submit curb-save"
