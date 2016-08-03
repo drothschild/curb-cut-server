@@ -2,8 +2,8 @@
 var newMarkers = <%= raw @hash.to_json %>;
 var m = newMarkers[0];
 var marker = filterMarker(m.id);
-google.maps.event.trigger(marker.getServiceObject(), 'click');
-// Get the 
+// open the associated marker and set the contents of its window to the updated info
+google.maps.event.trigger(marker.getServiceObject(), 'click'); 
 handler.currentInfowindow().setContent(m.infowindow);
-// Prevent editCurb from changing the window content back to its pre-edit 
+// Prevent editCurb from changing the window content back to its pre-edit content
 google.maps.event.clearListeners(handler.currentInfowindow(),'closeclick');
