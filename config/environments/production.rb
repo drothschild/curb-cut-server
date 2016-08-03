@@ -88,7 +88,7 @@ Rails.application.configure do
     url: ':s3_domain_url',
     path: ':class/:id.:style.:extension',
     default_url:"/images/:style/default_image.jpg", 
-    s3_protocol: 'http',
+    s3_protocol: 'https',
     s3_credentials: {
       bucket: ENV.fetch("AWS_BUCKET"),
       access_key_id: ENV.fetch("AWS_ACCESS_KEY_ID"),
