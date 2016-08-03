@@ -99,7 +99,6 @@ function editCurb(event) {
   var id = event.currentTarget.id;
   var data = ""; 
   var oldContent = handler.currentInfowindow().getContent();
-  console.log (oldContent);
   var ajaxRequest = $.ajax({
     url: uri,
     type: 'get',
@@ -110,8 +109,7 @@ function editCurb(event) {
     var marker = filterMarker(id);
     handler.currentInfowindow().setContent(serverResponse);
     google.maps.event.addListener(handler.currentInfowindow(),'closeclick', function(){
-      console.log ("changing content back")
-      handler.currentInfowindow().setContent(oldContent);
+        handler.currentInfowindow().setContent(oldContent);
     });
   });
 }
@@ -127,11 +125,10 @@ function filterMarker(id) {
 function openInfowindow(html, marker)  {
   // Close previous infowindow if exists
   closeInfowindow();
-  console.log ("close info window ");
   // Set the content and open
   handler.map.visibleInfoWindow = new google.maps.InfoWindow({content: html});
   handler.map.visibleInfoWindow.open(handler.map.serviceObject, marker);
-  console.log ("open Info Window");
+
 }
 
 function closeInfowindow() {
