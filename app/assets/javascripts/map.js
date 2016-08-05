@@ -85,8 +85,7 @@ function curbsNew(geocode_information) {
     $.ajax({
         url: '/curbs/new?' + jQuery.param({curb:geocode_information}) + '#chunked=true',
         type: 'GET',
-        success: function(html) { 
-            
+        success: function(html) {            
             var createFormOpen = function() {
                 
                 // Open new form                    
@@ -95,12 +94,10 @@ function curbsNew(geocode_information) {
                 google.maps.event.addListener(handler.map.visibleInfoWindow,'closeclick', function(){
                    clearMarker(curbsNewMarker);
                 });   
-            }
-            
+            }            
             // Invoke now
-            createFormOpen();
-            
-            // Clicking "again" on the new marker will reproduce behavior 
+            createFormOpen();            
+            // Clicking again on the new marker will reproduce behavior 
             google.maps.event.addListener(curbsNewMarker, "click", function() {
                 createFormOpen();
             });
@@ -111,7 +108,7 @@ function curbsNew(geocode_information) {
 var saveCurb = function(event) {
   // runs on clicking the save button in the New Curb form. 
   // Unused because attachments don't work with ajax requests
-  //  The Create Curb script is called by the Rails controller- it's in the views/curbs/create.js.erb
+  //  The Create Curb script is called by the Rails controller- in the views/curbs/create.js.erb
 }
 
 // Deletes a curb from the server and removes it from the map
