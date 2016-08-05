@@ -5,6 +5,5 @@ var marker = filterMarker(m.id);
 // open the associated marker and set the contents of its window to the updated info
 google.maps.event.trigger(marker.getServiceObject(), 'click'); 
 handler.currentInfowindow().setContent(m.infowindow);
-console.log()
 // Prevent editCurb from changing the window content back to its pre-edit content
 google.maps.event.clearListeners(handler.currentInfowindow(),'closeclick');
