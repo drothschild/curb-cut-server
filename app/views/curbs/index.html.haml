@@ -1,48 +1,20 @@
+%h2.col-12.text-center Curb Cuts Map
+#map
 :javascript
-  //default position is center of Oakland
-  var lat = 37.8044;
-  var lng = -122.2711;
-  var pos = new google.maps.LatLng(lat, lng);
-  var geocoder = new google.maps.Geocoder();
-  var curbsNewMarker = null;
-  handler = Gmaps.build('Google');
-  handler.buildMap( {
-    provider: {
-      zoom: 15,
-      do_clustering: false, 
-      disableDoubleClickZoom: true,
-      center: pos
-    },
-    internal: {
-      id: 'map'
-    }
-  });
+  buildMap();
+  // When map is loaded, get the location and convert @hash from the ruby controller to markers on the map
   google.maps.event.addListenerOnce(handler.map.getServiceObject(), 'idle', function(event) {
     getLocation();
     var markers = #{raw @hash.to_json};
-    handler.markers = markers.map (function(m) {
-      var marker = handler.addMarker(m);
-      marker.serviceObject.set('id', m.id);
-      return marker;
-      })
+    addMarkerstoMap(markers);
     });
 
-
+  // Upon double click, create a new marker
   google.maps.event.addListener(handler.map.getServiceObject(), 'dblclick', function(event) {
     clearMarker(curbsNewMarker);
     geocodePoint(event.latLng, function(data){
       curbsNew(data);
     })
-    });
-  $(document).ready(function(){
-   $(document).on('click','.curb-save',function(event) {
-      saveCurb(event);
-    });
-    $(document).on('click','.curb-delete',function(event) {
-      deleteCurb(event);
-    });
-    $(document).on('click','.curb-edit',function(event) {
-      editCurb(event);
-    });
-  });   
+  });
+  
  

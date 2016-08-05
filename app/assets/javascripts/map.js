@@ -1,3 +1,35 @@
+//Set default position (Center of Oakland) and build the map
+function buildMap() {
+  var lat = 37.8044;
+  var lng = -122.2711;
+  var pos = new google.maps.LatLng(lat, lng);
+  geocoder = new google.maps.Geocoder();
+  curbsNewMarker = null;
+  handler = Gmaps.build('Google');
+  handler.buildMap( {
+    provider: {
+      zoom: 15,
+      do_clustering: false, 
+      disableDoubleClickZoom: true,
+      center: pos
+    },
+    internal: {
+      id: 'map'
+    }
+  });
+
+}
+
+// Add markers to array in handler object and add it to the map. 
+function addMarkerstoMap(markers){
+  handler.markers = markers.map (function(m) {
+    var marker = handler.addMarker(m);
+    // Set the id of the marker for filtering
+    marker.serviceObject.set('id', m.id);
+    return marker;
+    })
+}
+
 // Get current user location
 function getLocation() {
   if (navigator.geolocation){
