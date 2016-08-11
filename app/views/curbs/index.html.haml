@@ -1,5 +1,8 @@
 %h2.col-12.text-center Curb Cuts Map
 #map
+%div.container 
+  = render 'sidebar'
+
 :javascript
   buildMap();
   // When map is loaded, get the location and convert @hash from the ruby controller to markers on the map
