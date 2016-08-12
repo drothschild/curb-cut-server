@@ -11,6 +11,7 @@ function buildMap() {
       zoom: 15,
       do_clustering: false, 
       disableDoubleClickZoom: true,
+      scrollwheel: false,
       center: pos
     },
     internal: {

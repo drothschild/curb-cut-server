@@ -1,7 +1,6 @@
-%h2.col-12.text-center Curb Cuts Map
-#map
-%div.container 
-  = render 'sidebar'
+#map.col-md-8.col-xs-12
+.col-md-4
+  = render :partial => 'sidebar'
 
 :javascript
   buildMap();
