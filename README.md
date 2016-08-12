@@ -2,6 +2,7 @@
 * A Web map for wheelchair users to track, photograph, and navigate around missing curb cuts on the sidewalk. 
 * Easily add curbs to the map by double clicking on a location.
 * Map automatically centers at user location.
+* CRUD Rails backend
 
 
 ##Tech Stacks
